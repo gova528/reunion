@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Join the Reunion — Grand Reunion Tour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="page" style="display:flex; align-items:center; min-height:100vh; justify-content:center;">
+    <div class="glass modal" style="max-width:460px;">
+      <h3 style="text-align:center; margin-bottom:6px;">🎓 You're Invited!</h3>
+      <p style="color:var(--text-2); text-align:center; font-size:.88rem; margin-bottom:22px;">
+        Join the Grand Reunion Tour — Class of 2006–2007.
+      </p>
+      <form id="accept-form">
+        <div class="field"><label>Full Name</label><input id="acc-name" required /></div>
+        <div class="field"><label>Email</label><input id="acc-email" type="email" required /></div>
+        <div class="field"><label>Create a Password (optional, for future logins)</label><input id="acc-password" type="password" placeholder="Leave blank to skip" /></div>
+        <div class="field"><label>City (optional)</label><input id="acc-city" placeholder="e.g. Bengaluru" /></div>
+        <div class="field"><label>Profession (optional)</label><input id="acc-profession" placeholder="e.g. Product Manager" /></div>
+        <div class="field"><label>A School Memory (optional)</label><input id="acc-memory" placeholder="One line you'll never forget" /></div>
+        <button class="btn btn-primary" type="submit" style="width:100%; margin-top:8px;">Join the Reunion</button>
+      </form>
+      <p id="status-msg" style="text-align:center; font-size:.85rem; margin-top:16px;"></p>
+    </div>
+  </main>
+
+  <div class="toast-stack" id="toast-stack"></div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const token = params.get("token");
+    const statusMsg = document.getElementById("status-msg");
+
+    if (!token) {
+      statusMsg.textContent = "Invalid invitation link — no token provided.";
+      statusMsg.style.color = "#e85d6b";
+    }
+
+    document.getElementById("accept-form").onsubmit = async (e) => {
+      e.preventDefault();
+      const full_name = document.getElementById("acc-name").value;
+      const email = document.getElementById("acc-email").value;
+      const password = document.getElementById("acc-password").value;
+      const city = document.getElementById("acc-city").value;
+      const profession = document.getElementById("acc-profession").value;
+      const school_memory = document.getElementById("acc-memory").value;
+      try {
+        const res = await fetch("/api/invitations/accept", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token, full_name, email, password, city, profession, school_memory }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Something went wrong.");
+        statusMsg.style.color = "#9ee6a8";
+        statusMsg.textContent = "🎉 Welcome aboard! You can now log in from the home page.";
+        document.getElementById("accept-form").style.display = "none";
+        setTimeout(() => (location.href = "index.html"), 2200);
+      } catch (err) {
+        statusMsg.style.color = "#e85d6b";
+        statusMsg.textContent = err.message;
+      }
+    };
+  </script>
+</body>
+</html>

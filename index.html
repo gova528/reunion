@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Grand Reunion Tour — Class of 2006–2007</title>
+<meta name="description" content="Grand Reunion Tour — premium reunion hub for the Class of 2006-2007." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <nav class="navbar glass">
+    <div class="nav-brand"><span class="dot"></span> Grand Reunion Tour <span style="color:var(--text-2); font-weight:400; font-size:.8rem;">'06–'07</span></div>
+    <div class="nav-links">
+      <a href="#home" data-route="home" class="active">Home</a>
+      <a href="#directory" data-route="directory">Directory</a>
+      <a href="#gallery" data-route="gallery">Gallery</a>
+      <a href="#events" data-route="events">Events</a>
+      <a href="#board" data-route="board">Message Board</a>
+      <a href="#lostfound" data-route="lostfound">Lost &amp; Found</a>
+      <a href="#careers" data-route="careers">Careers</a>
+    </div>
+    <div class="nav-actions" id="auth-area"></div>
+  </nav>
+
+  <main class="page">
+    <div id="view-root" class="page-view"></div>
+  </main>
+
+  <footer class="footer">
+    Grand Reunion Tour · Class of 2006–2007 · Built with care for every memory we share.
+  </footer>
+
+  <!-- Toast stack -->
+  <div class="toast-stack" id="toast-stack"></div>
+
+  <!-- Login Modal -->
+  <div class="modal-overlay" id="modal-login">
+    <div class="modal glass">
+      <button class="modal-close">✕</button>
+      <h3>Welcome Back</h3>
+      <form id="login-form">
+        <div class="field"><label>Email</label><input id="login-email" type="email" required placeholder="owner@grt.com" /></div>
+        <div class="field"><label>Password</label><input id="login-password" type="password" required placeholder="••••••••" /></div>
+        <button class="btn btn-primary" type="submit" style="width:100%; margin-top:8px;">Login</button>
+        <p style="font-size:.74rem; color:var(--text-2); margin-top:14px; text-align:center;">
+          Demo Owner: owner@grt.com / GrtOwner@2026<br/>Demo Classmate: ananya.rao@example.com / classmate123
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
